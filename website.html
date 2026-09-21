@@ -366,33 +366,6 @@
   .service-check li{ font-size: var(--fs-small); color: var(--cream-dim); display: flex; gap: 0.5rem; align-items: flex-start; }
   .service-check li::before{ content: "✓"; color: var(--cream); flex: none; font-weight: 600; }
 
-  /* ---------- Proof carousel ---------- */
-  .proof-row{
-    display: flex;
-    gap: 1.25rem;
-    overflow-x: auto;
-    padding-block: 0.5rem 1rem;
-    scroll-snap-type: x mandatory;
-  }
-  .proof-card{
-    flex: 0 0 min(320px, 80vw);
-    background: var(--bg-raised);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: clamp(1.5rem, 3vw, 2rem);
-    scroll-snap-align: start;
-  }
-  .proof-card .stat-num{ display: block; margin-bottom: 0.6rem; }
-  .proof-card p{ color: var(--cream-dim); font-size: var(--fs-small); }
-  .proof-swipe-hint{
-    text-align: center;
-    font-size: var(--fs-micro);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--cream-faint);
-    margin-top: 0.5rem;
-  }
-
   .stats{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1154,7 +1127,6 @@
     <nav>
       <ul class="nav-links" id="navLinks">
         <li><a href="#offer">The Offer</a></li>
-        <li><a href="#track-record">Results</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
@@ -1394,34 +1366,6 @@
     </div>
   </section>
 
-
-  <section id="track-record" style="background: radial-gradient(28% 26% at 28% 68%, rgba(36,50,72,0.5) 0%, rgba(36,50,72,0) 100%), var(--bg);">
-    <div class="wrap">
-      <div class="section-head reveal" style="justify-content: center; text-align: center;">
-        <h2>Built on <em>knowing the client</em>, not chasing the algorithm</h2>
-      </div>
-
-      <div class="proof-row reveal">
-        <div class="proof-card">
-          <span class="stat-num">500+</span>
-          <p>Bespoke mirrors and splashbacks personally handmade and fitted before Foxd Media existed. The same eye for finish now goes into every shoot.</p>
-        </div>
-        <div class="proof-card">
-          <span class="stat-num">Savoy &amp; InterContinental</span>
-          <p>Flagship installations trusted to Leo directly: work fitted for clients with zero tolerance for a rough edge.</p>
-        </div>
-        <div class="proof-card">
-          <span class="stat-num">2+ yrs</span>
-          <p>Spent building relationships with kitchen and interior studios UK-wide, selling into the same homeowners Foxd now films for.</p>
-        </div>
-        <div class="proof-card">
-          <span class="stat-num">100%</span>
-          <p>In-house. Every script, shoot, edit, and campaign is run by the same small team, nothing handed off to a freelancer who's never seen your showroom.</p>
-        </div>
-      </div>
-      <div class="proof-swipe-hint">Swipe →</div>
-    </div>
-  </section>
 
   <section id="reference" class="reference-band">
     <div class="wrap">
