@@ -904,126 +904,155 @@
   .offer-intro h2{ font-size: clamp(2.1rem, 4.4vw, 3rem); }
   .offer-intro p{ color: var(--cream-dim); font-size: var(--fs-lead); margin-top: 1rem; }
 
-  .offer-grid{
+  /* ---------- Process steps ---------- */
+  .process{
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 1.25rem;
-    align-items: start;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
   }
-  @media (max-width: 860px){ .offer-grid{ grid-template-columns: 1fr; } }
-
-  .offer-col{
+  @media (max-width: 900px){ .process{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px){ .process{ grid-template-columns: 1fr; } }
+  .p-step{
     background: var(--bg-raised);
-    border: 1px solid var(--line-strong);
-    padding: clamp(1.5rem, 3vw, 2.25rem);
-  }
-  .offer-col.bonus{
-    background: var(--bg-inset);
-    border-color: var(--navy);
-    box-shadow: 0 0 44px rgba(36,50,72,0.4);
-  }
-  /* The core list is much taller; pin the bonuses so they stay in view
-     beside it rather than leaving a column of dead space. */
-  @media (min-width: 861px){
-    .offer-col.bonus{ position: sticky; top: 6.5rem; }
-  }
-  .offer-col-head{
+    padding: clamp(1.4rem, 2.6vw, 1.9rem);
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--line-strong);
+    flex-direction: column;
+    gap: 0.55rem;
   }
-  .offer-col-head h3{
+  .p-n{
     font-family: var(--font-heading);
     font-weight: 800;
-    font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.14em;
+    color: var(--navy);
+    background: var(--cream);
+    align-self: flex-start;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
   }
-  .offer-col-head .oc-tag{
+  .p-step b{
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: var(--fs-h3);
+    line-height: 1.15;
+    color: var(--cream);
+  }
+  .p-step p{
+    font-size: var(--fs-small);
+    line-height: 1.65;
+    color: var(--cream-dim);
+  }
+
+  /* ---------- Lead feed (illustrative) ---------- */
+  .feed{
+    background: var(--bg-inset);
+    border: 1px solid var(--line-strong);
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+  }
+  .feed-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .feed-title{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    color: var(--cream);
+  }
+  .feed-dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--cream);
+    flex: none;
+    animation: feedPulse 2.4s ease-out infinite;
+  }
+  @keyframes feedPulse{
+    0%{ box-shadow: 0 0 0 0 rgba(229,218,184,0.5); }
+    70%{ box-shadow: 0 0 0 9px rgba(229,218,184,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(229,218,184,0); }
+  }
+  .feed-tag{
     font-family: var(--font-primary);
     font-size: var(--fs-micro);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--cream-faint);
+    border: 1px solid var(--line);
+    padding: 0.3em 0.7em;
+    border-radius: 999px;
   }
-  .offer-col.bonus .oc-tag{ color: var(--cream); }
-
-  .offer-item{
+  .feed-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .feed-row{
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 0.3rem 1rem;
-    padding: 0.95rem 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .offer-item:last-child{ border-bottom: none; padding-bottom: 0; }
-  .offer-item b{ font-weight: 600; color: var(--cream); font-size: var(--fs-body); }
-  .offer-item .oi-v{
-    font-family: var(--font-primary);
-    font-size: var(--fs-small);
-    color: var(--cream-faint);
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
-  }
-  .offer-item .oi-d{
-    grid-column: 1 / -1;
-    font-size: var(--fs-small);
-    color: var(--cream-dim);
-    line-height: 1.5;
-  }
-
-  .offer-total{
-    position: relative;
-    margin-top: 1.25rem;
+    padding: 0.85rem 1rem;
     background: var(--bg-raised);
-    border: 1px solid var(--line-strong);
-    padding: clamp(1.75rem, 3.5vw, 2.5rem);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 1.5rem 2rem;
-    flex-wrap: wrap;
+    border: 1px solid var(--line);
+    border-left: 2px solid var(--charcoal);
+    animation: feedIn 0.45s ease both;
   }
-  .offer-total-label{
+  @keyframes feedIn{
+    from{ opacity: 0; transform: translateY(-10px); }
+    to{ opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .feed-row{ animation: none; }
+    .feed-dot{ animation: none; }
+  }
+  .fr-status{
+    grid-column: 1; grid-row: 1;
     font-family: var(--font-primary);
     font-size: var(--fs-micro);
-    letter-spacing: 0.12em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--cream-faint);
-    display: block;
-    margin-bottom: 0.5rem;
   }
-  .offer-total-strike{
-    font-family: var(--font-primary);
-    font-weight: 700;
-    font-size: clamp(1.4rem, 2.8vw, 1.9rem);
-    color: var(--cream-dim);
-    text-decoration: line-through;
-    text-decoration-thickness: 2px;
+  .fr-time{
+    grid-column: 2; grid-row: 1;
+    font-size: var(--fs-micro);
+    color: var(--cream-faint);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
-  .offer-total-price{
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: clamp(2.1rem, 4.6vw, 3.1rem);
-    color: var(--cream);
-    line-height: 1;
-  }
-  /* Words in place of a figure need a smaller size and room to wrap. */
-  .offer-total-price.words{
-    font-size: clamp(1.5rem, 3vw, 2.1rem);
-    max-width: 30ch;
-  }
-  .offer-total-price span{
-    display: block;
-    font-family: var(--font-primary);
-    font-weight: 400;
-    font-size: var(--fs-small);
-    color: var(--cream-dim);
-    margin-top: 0.6rem;
-    letter-spacing: 0;
+  .fr-main{ grid-column: 1 / -1; color: var(--cream-dim); font-size: var(--fs-small); }
+  .fr-main b{ color: var(--cream); font-weight: 600; }
+  .fr-meta{ grid-column: 1 / -1; font-size: var(--fs-micro); color: var(--cream-faint); }
+
+  .feed-row.is-booked{ border-left-color: var(--cream); }
+  .feed-row.is-booked .fr-status{ color: var(--cream); }
+  .feed-row.is-qualified{ border-left-color: var(--cream-dim); }
+  .feed-row.is-qualified .fr-status{ color: var(--cream-dim); }
+  .feed-row.is-quiz{ border-left-color: var(--cream-faint); }
+  .feed-row.is-filtered{ opacity: 0.55; }
+  .feed-row.is-filtered .fr-main{ text-decoration: line-through; text-decoration-color: var(--charcoal); }
+
+  .feed-foot{
+    margin-top: 1.1rem;
+    font-size: var(--fs-micro);
     line-height: 1.6;
-    max-width: 38ch;
+    color: var(--cream-faint);
+    max-width: 62ch;
   }
 
   /* ---------- Terms & guarantee ---------- */
@@ -1236,112 +1265,78 @@
         <h2>The <em>Full Diary System</em></h2>
       </div>
 
-      <div class="offer-grid reveal">
-        <div class="offer-col">
-          <div class="offer-col-head">
-            <h3>The system</h3>
-            <span class="oc-tag">Included</span>
-          </div>
-          <div class="offer-item">
-            <b>Offer &amp; Angle Strategy</b>
-            <span class="oi-v">&pound;1,000</span>
-            <span class="oi-d">What we say, who we say it to, and the angle that stops your buyer mid-scroll.</span>
-          </div>
-          <div class="offer-item">
-            <b>Ad Scripts, Written For You</b>
-            <span class="oi-v">&pound;600</span>
-            <span class="oi-d">Every script written here. You never stare at a blank page.</span>
-          </div>
-          <div class="offer-item">
-            <b>On-Site Content Day</b>
-            <span class="oi-v">&pound;1,800</span>
-            <span class="oi-d">A professional filmer in your showroom or on a live install. Six to eight finished ads.</span>
-          </div>
-          <div class="offer-item">
-            <b>Hook Rotation System</b>
-            <span class="oi-v">&pound;600</span>
-            <span class="oi-d">Ten hooks filmed against interchangeable bodies. When one tires we swap it, instead of starting over. It is why one shoot lasts a quarter.</span>
-          </div>
-          <div class="offer-item">
-            <b>Lower-Funnel Statics</b>
-            <span class="oi-v">&pound;400</span>
-            <span class="oi-d">Offers, incentives and payment terms shown to people who already visited. Finance is the real blocker on a &pound;40k kitchen.</span>
-          </div>
-          <div class="offer-item">
-            <b>Landing Page &amp; VSL</b>
-            <span class="oi-v">&pound;1,500</span>
-            <span class="oi-d">Built to convert, so nobody clicks your ad and lands nowhere.</span>
-          </div>
-          <div class="offer-item">
-            <b>The Tyre-Kicker Filter</b>
-            <span class="oi-v">&pound;1,000</span>
-            <span class="oi-d">A qualifier on location, budget, timeline and cash versus finance, before anything reaches your diary.</span>
-          </div>
-          <div class="offer-item">
-            <b>Qualified-Only Optimisation</b>
-            <span class="oi-v">&pound;750</span>
-            <span class="oi-d">Only qualified applicants fire the tracked event, so Meta learns to hunt buyers rather than form-fillers. Lead quality compounds month on month.</span>
-          </div>
-          <div class="offer-item">
-            <b>Human Qualification Call</b>
-            <span class="oi-v">&pound;1,200</span>
-            <span class="oi-d">Every single lead gets a phone call from us. Not a text. A call.</span>
-          </div>
-          <div class="offer-item">
-            <b>Pipeline &amp; Profit Dashboard</b>
-            <span class="oi-v">&pound;1,200</span>
-            <span class="oi-d">Pipeline value, closed-won and profit in one place. You see exactly what the ads made you.</span>
-          </div>
-          <div class="offer-item">
-            <b>Managed Ad Spend</b>
-            <span class="oi-v">&pound;900</span>
-            <span class="oi-d">Budgeting, testing and scaling handled, so no money goes up in smoke.</span>
-          </div>
+      <div class="process reveal">
+        <div class="p-step">
+          <span class="p-n">01</span>
+          <b>Strategy &amp; Targeting</b>
+          <p>We start with the job you actually want more of &mdash; not &ldquo;kitchens&rdquo; but the full refit, in the postcodes worth the drive. The offer, the angle and the audience are built around that one buyer before a penny reaches Meta.</p>
         </div>
-
-        <div class="offer-col bonus">
-          <div class="offer-col-head">
-            <h3>Bonuses</h3>
-            <span class="oc-tag">No extra cost</span>
-          </div>
-          <div class="offer-item">
-            <b>The Dormant List Revival</b>
-            <span class="oi-v">&pound;2,000</span>
-            <span class="oi-d">In month one, before the ads have even warmed up, we run your existing customer list for bathrooms, utilities and referrals. No ad spend. It can produce enquiries in week one.</span>
-          </div>
-          <div class="offer-item">
-            <b>The Showroom Close Guide</b>
-            <span class="oi-v">&pound;1,000</span>
-            <span class="oi-d">How to run the design appointment, written from years of selling into these exact homes. For when the leads land and the close has to follow.</span>
-          </div>
-          <div class="offer-item">
-            <b>The Organic Content Library</b>
-            <span class="oi-v">&pound;1,250</span>
-            <span class="oi-d">25 posts a cycle: FAQs, founder stories, project education. So the profile they check after clicking looks like a business worth trusting.</span>
-          </div>
-          <div class="offer-item">
-            <b>The Speed-to-Lead Pack</b>
-            <span class="oi-v">&pound;750</span>
-            <span class="oi-d">Call scripts, SMS templates and a follow-up cadence, pre-loaded into your CRM.</span>
-          </div>
-          <div class="offer-item">
-            <b>The Review Engine</b>
-            <span class="oi-v">&pound;500</span>
-            <span class="oi-d">Automated review requests after every fit, so proof builds while the ads run.</span>
-          </div>
+        <div class="p-step">
+          <span class="p-n">02</span>
+          <b>Scripts &amp; On-Site Filming</b>
+          <p>Every script written here, then a full content day in your showroom or on a live install. Ten hooks filmed against interchangeable bodies, so when one tires we swap it instead of starting over. Your projects, your finishes, your team. Never stock footage.</p>
+        </div>
+        <div class="p-step">
+          <span class="p-n">03</span>
+          <b>The Tyre-Kicker Quiz</b>
+          <p>Every click runs into a short qualifying quiz before it ever counts as a lead. Location, budget, timeline, cash or finance. Browsers and bargain-hunters fall out here, quietly, before they reach a human being.</p>
+        </div>
+        <div class="p-step">
+          <span class="p-n">04</span>
+          <b>Straight Into The CRM</b>
+          <p>What survives lands in GoHighLevel the second it is submitted, tagged and timestamped with every quiz answer attached. Nothing sits in an inbox waiting to be noticed.</p>
+        </div>
+        <div class="p-step">
+          <span class="p-n">05</span>
+          <b>I Call Every One</b>
+          <p>Not a text. A phone call, from me, the same working day &mdash; confirming the budget is real, the timeline is real, and that both decision-makers will actually be in the room.</p>
+        </div>
+        <div class="p-step">
+          <span class="p-n">06</span>
+          <b>Booked Into Your Diary</b>
+          <p>Only then does it reach you. The appointment lands in your CRM with everything I learned on the call attached. You turn up and sell.</p>
         </div>
       </div>
 
-      <div class="offer-total framed reveal">
+      <div class="feed framed reveal">
         <span class="fr-tl"></span><span class="fr-tr"></span><span class="fr-bl"></span><span class="fr-br"></span>
-        <div>
-          <span class="offer-total-label">What it is worth</span>
-          <div class="offer-total-strike">&pound;16,450</div>
+        <div class="feed-head">
+          <span class="feed-title"><span class="feed-dot" aria-hidden="true"></span>Your lead feed</span>
+          <span class="feed-tag">Example &middot; illustrative data</span>
         </div>
-        <div>
-          <span class="offer-total-label">What you pay</span>
-          <div class="offer-total-price words">One monthly fee<span>No setup, no contract, 30 days&rsquo; notice. Scoped to your catchment and capacity on the call.</span></div>
-        </div>
+        <ul class="feed-list" id="feedList">
+          <li class="feed-row is-booked" data-age="140">
+            <span class="fr-status">Appointment booked</span>
+            <span class="fr-time">2 min ago</span>
+            <span class="fr-main"><b>Sarah T</b> &middot; Full kitchen refit &middot; Guildford</span>
+            <span class="fr-meta">&pound;40&ndash;60k &middot; 8 weeks &middot; Both decision-makers</span>
+          </li>
+          <li class="feed-row is-filtered" data-age="380">
+            <span class="fr-status">Filtered out</span>
+            <span class="fr-time">6 min ago</span>
+            <span class="fr-main">Kitchen doors only &middot; Woking</span>
+            <span class="fr-meta">Budget under &pound;5k &middot; Not passed on</span>
+          </li>
+          <li class="feed-row is-qualified" data-age="660">
+            <span class="fr-status">Qualified on call</span>
+            <span class="fr-time">11 min ago</span>
+            <span class="fr-main"><b>James &amp; Priya M</b> &middot; Kitchen + utility &middot; Sevenoaks</span>
+            <span class="fr-meta">&pound;55k &middot; Finance approved &middot; Call booked</span>
+          </li>
+          <li class="feed-row is-quiz" data-age="1080">
+            <span class="fr-status">Quiz completed</span>
+            <span class="fr-time">18 min ago</span>
+            <span class="fr-main"><b>Daniel R</b> &middot; Bespoke island &middot; Tunbridge Wells</span>
+            <span class="fr-meta">Awaiting qualification call</span>
+          </li>
+          <li class="feed-row is-booked" data-age="1440">
+            <span class="fr-status">Appointment booked</span>
+            <span class="fr-time">24 min ago</span>
+            <span class="fr-main"><b>Helen W</b> &middot; Full kitchen refit &middot; Reigate</span>
+            <span class="fr-meta">&pound;70k+ &middot; 12 weeks &middot; Showroom visit Thursday</span>
+          </li>
+        </ul>
+        <p class="feed-foot">Filtered by the quiz, called by me, and into your diary only once it qualifies. Entries shown are illustrative examples of a working feed, not live client data.</p>
       </div>
     </div>
   </section>
@@ -1632,6 +1627,60 @@
       document.querySelectorAll('.ls-step').forEach(function(el){ stepIo.observe(el); });
     } else {
       document.querySelectorAll('.ls-step').forEach(function(el){ el.classList.add('lit'); });
+    }
+
+    // Illustrative lead feed. Sample entries only - not live client data.
+    var feed = document.getElementById('feedList');
+    if(feed){
+      var pool = [
+        {s:'quiz',     l:'Quiz completed',     m:'<b>Anita S</b> &middot; Shaker kitchen &middot; Epsom',                     d:'Awaiting qualification call'},
+        {s:'booked',   l:'Appointment booked', m:'<b>Marcus B</b> &middot; Kitchen + bi-folds &middot; Dorking',             d:'&pound;48k &middot; Cash buyer &middot; Saturday 10am'},
+        {s:'filtered', l:'Filtered out',       m:'Rental refurb &middot; Croydon',                                           d:'Landlord &middot; no timeline &middot; not passed on'},
+        {s:'qualified',l:'Qualified on call',  m:'<b>Rachel &amp; Tom H</b> &middot; Full refit + utility &middot; Oxted',   d:'&pound;62k &middot; Finance approved'},
+        {s:'quiz',     l:'Quiz completed',     m:'<b>Peter N</b> &middot; Larder &amp; island &middot; Horsham',             d:'Awaiting qualification call'},
+        {s:'booked',   l:'Appointment booked', m:'<b>Yvonne C</b> &middot; Full kitchen refit &middot; Haywards Heath',      d:'&pound;55k &middot; 10 weeks &middot; Both decision-makers'},
+        {s:'filtered', l:'Filtered out',       m:'Worktop replacement only &middot; Sutton',                                 d:'Budget under &pound;3k &middot; not passed on'},
+        {s:'qualified',l:'Qualified on call',  m:'<b>Ade O</b> &middot; Kitchen + boot room &middot; Weybridge',             d:'&pound;70k &middot; Cash buyer'}
+      ];
+      var pi = 0;
+
+      function ago(t){
+        var sec = Math.round((Date.now() - t) / 1000);
+        if(sec < 45) return 'just now';
+        var min = Math.round(sec / 60);
+        if(min < 60) return min + ' min ago';
+        return Math.round(min / 60) + ' hr ago';
+      }
+      function stamp(){
+        feed.querySelectorAll('.feed-row').forEach(function(row){
+          var t = Number(row.getAttribute('data-t'));
+          if(t){ row.querySelector('.fr-time').textContent = ago(t); }
+        });
+      }
+
+      // Seed the markup rows with real timestamps so they age alongside new ones.
+      feed.querySelectorAll('.feed-row').forEach(function(row){
+        var age = Number(row.getAttribute('data-age')) || 0;
+        row.setAttribute('data-t', Date.now() - age * 1000);
+      });
+
+      if(!reduce){
+        setInterval(function(){
+          var e = pool[pi % pool.length];
+          pi++;
+          var li = document.createElement('li');
+          li.className = 'feed-row is-' + e.s;
+          li.setAttribute('data-t', Date.now());
+          li.innerHTML = '<span class="fr-status">' + e.l + '</span>'
+                       + '<span class="fr-time">just now</span>'
+                       + '<span class="fr-main">' + e.m + '</span>'
+                       + '<span class="fr-meta">' + e.d + '</span>';
+          feed.insertBefore(li, feed.firstElementChild);
+          while(feed.children.length > 5){ feed.removeChild(feed.lastElementChild); }
+          stamp();
+        }, 4200);
+        setInterval(stamp, 15000);
+      }
     }
   })();
 </script>
