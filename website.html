@@ -25,6 +25,7 @@
     --navy: #243248;
     --navy-deep: #141C29;
     --navy-soft: rgba(36,50,72,0.45);
+    --navy-lift: #7CA0D8;
     --ink: #1B1912;
 
     --font-secondary: 'Fraunces', Georgia, serif;
@@ -448,37 +449,6 @@
     max-width: 22ch;
   }
   @media (max-width: 640px){ .stats{ grid-template-columns: 1fr; gap: 1.25rem; } }
-
-  /* ---------- Marquee ---------- */
-  .marquee-band{
-    background: var(--navy);
-    color: var(--cream);
-    overflow: hidden;
-    border-block: 1px solid var(--line);
-  }
-  .marquee-track{
-    display: flex;
-    width: max-content;
-    animation: scroll-left 34s linear infinite;
-  }
-  @media (prefers-reduced-motion: reduce){ .marquee-track{ animation: none; } }
-  @keyframes scroll-left{
-    from{ transform: translateX(0); }
-    to{ transform: translateX(-50%); }
-  }
-  .marquee-item{
-    font-family: var(--font-primary);
-    font-weight: 600;
-    font-size: var(--fs-small);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.9rem 1.5rem;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-  }
-  .marquee-item::after{ content: "✦"; opacity: 0.55; }
 
   /* ---------- Section shell ---------- */
   section{ padding-block: clamp(3.5rem, 8vw, 6rem); }
@@ -937,47 +907,108 @@
   .offer-intro h2{ font-size: clamp(2.1rem, 4.4vw, 3rem); }
   .offer-intro p{ color: var(--cream-dim); font-size: var(--fs-lead); margin-top: 1rem; }
 
-  /* ---------- Process steps ---------- */
-  .process{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
-    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
-  }
-  @media (max-width: 900px){ .process{ grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px){ .process{ grid-template-columns: 1fr; } }
-  .p-step{
+  /* ---------- The stack ----------
+     Four categories, hues taken in fixed slot order from the validated
+     categorical palette and checked against this surface. Every chip is
+     also labelled, so identity never rests on colour alone. */
+  /* --cat paints marks (dots, borders, fills) at the validated step.
+     --cat-text is a lifted step for the small labels, which need 4.5:1
+     as text and do not get there on the mark step. */
+  .stack-card.is-pm,  .stack-chip.is-pm  { --cat: #3987e5; --cat-text: #6da7ec; }
+  .stack-card.is-cr,  .stack-chip.is-cr  { --cat: #d95926; --cat-text: #ef8b5f; }
+  .stack-card.is-qb,  .stack-chip.is-qb  { --cat: #199e70; --cat-text: #3cc492; }
+  .stack-card.is-ct,  .stack-chip.is-ct  { --cat: #c98500; --cat-text: #e0a63a; }
+
+  .stack-head{ text-align: center; max-width: 780px; margin: 0 auto clamp(2.5rem, 5vw, 3.5rem); }
+  .stack-eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    font-family: var(--font-primary);
+    font-size: var(--fs-micro);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
     background: var(--bg-raised);
-    padding: clamp(1.4rem, 2.6vw, 1.9rem);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 0.5em 1.1em;
+    margin-bottom: 1.5rem;
+  }
+  .stack-eyebrow::before{
+    content: "";
+    width: 0.45em;
+    height: 0.45em;
+    border-radius: 50%;
+    background: var(--cream);
+  }
+  .stack-head h2{ font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1.12; }
+  .stack-hl{ color: var(--navy-lift); }
+  .stack-sub{
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+    color: var(--cream-dim);
+    max-width: 58ch;
+    margin: 1.5rem auto 0;
+  }
+
+  /* Two rows of chips, travelling opposite ways. */
+  .stack-marquee{ display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+  .stack-row{ overflow: hidden; }
+  .stack-track{ display: flex; gap: 0.9rem; width: max-content; }
+  .stack-track.to-left{ animation: stack-left 42s linear infinite; }
+  .stack-track.to-right{ animation: stack-right 48s linear infinite; }
+  @keyframes stack-left{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
+  @keyframes stack-right{ from{ transform: translateX(-50%); } to{ transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce){
+    .stack-track{ animation: none; }
+    .stack-row{ overflow-x: auto; }
+  }
+  .stack-chip{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex: none;
+    background: var(--bg-raised);
+    border: 1px solid color-mix(in srgb, var(--cat) 35%, transparent);
+    border-radius: 999px;
+    padding: 0.7rem 1.2rem;
+    white-space: nowrap;
+    font-family: var(--font-primary);
+    font-size: var(--fs-small);
+  }
+  .stack-chip b{ color: var(--cat-text); font-weight: 700; }
+  .stack-chip .sc-cat{ color: var(--cream-faint); }
+  .sc-dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--cat); flex: none; }
+
+  .stack-cards{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  @media (max-width: 1000px){ .stack-cards{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px){ .stack-cards{ grid-template-columns: 1fr; } }
+  .stack-cards > *{ min-width: 0; }
+  .stack-card{
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: clamp(1.4rem, 2.6vw, 1.85rem);
     display: flex;
     flex-direction: column;
-    gap: 0.55rem;
+    gap: 0.9rem;
+    align-items: flex-start;
   }
-  .p-n{
-    font-family: var(--font-heading);
-    font-weight: 800;
+  .stack-card h3{ font-size: var(--fs-h3); line-height: 1.15; }
+  .sc-tools{ display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .sc-tool{
+    font-family: var(--font-primary);
     font-size: var(--fs-micro);
-    letter-spacing: 0.14em;
-    color: var(--navy);
-    background: var(--cream);
-    align-self: flex-start;
-    padding: 0.2em 0.5em;
-    border-radius: 4px;
+    font-weight: 600;
+    color: var(--cat-text);
+    background: color-mix(in srgb, var(--cat) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--cat) 30%, transparent);
+    border-radius: 999px;
+    padding: 0.35em 0.75em;
   }
-  .p-step b{
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: var(--fs-h3);
-    line-height: 1.15;
-    color: var(--cream);
-  }
-  .p-step p{
-    font-size: var(--fs-small);
-    line-height: 1.65;
-    color: var(--cream-dim);
-  }
+  .stack-card p{ color: var(--cream-dim); font-size: var(--fs-small); line-height: 1.6; }
 
   /* ---------- Lead feed (illustrative) ---------- */
   /* Light panel on purpose: it should read as a CRM window embedded in the page. */
@@ -1440,23 +1471,6 @@
     </div>
   </section>
 
-  <div class="marquee-band" aria-hidden="true">
-    <div class="marquee-track">
-      <span class="marquee-item">On-Site Filming</span>
-      <span class="marquee-item">Scriptwriting</span>
-      <span class="marquee-item">Meta Ads</span>
-      <span class="marquee-item">Lead Generation</span>
-      <span class="marquee-item">Showroom Campaigns</span>
-      <span class="marquee-item">Creative Strategy</span>
-      <span class="marquee-item">On-Site Filming</span>
-      <span class="marquee-item">Scriptwriting</span>
-      <span class="marquee-item">Meta Ads</span>
-      <span class="marquee-item">Lead Generation</span>
-      <span class="marquee-item">Showroom Campaigns</span>
-      <span class="marquee-item">Creative Strategy</span>
-    </div>
-  </div>
-
   <section style="background-image: radial-gradient(28% 26% at 28% 32%, rgba(36,50,72,0.5) 0%, rgba(36,50,72,0) 100%);">
     <div class="wrap">
       <div class="story-intro reveal">
@@ -1499,43 +1513,89 @@
 
   <section id="offer" class="offer-section">
     <div class="wrap">
-      <div class="offer-intro reveal">
-        <h2>The <em>Full Diary System</em></h2>
+      <div class="stack-head reveal">
+        <span class="stack-eyebrow">The stack</span>
+        <h2>We don&rsquo;t hand you a phone number.<br><span class="stack-hl">We hand you a booked appointment.</span></h2>
+        <p class="stack-sub">Every part of this earns its place. Years spent selling to these homeowners, learning what moves them and what wastes your time, wired into one system that puts the right people in front of you.</p>
       </div>
 
-      <div class="process reveal">
-        <div class="p-step">
-          <span class="p-n">01</span>
-          <b>Strategy &amp; Targeting</b>
-          <p>We start with the job you actually want more of &mdash; not &ldquo;kitchens&rdquo; but the full refit, in the postcodes worth the drive. The offer, the angle and the audience are built around that one buyer before a penny reaches Meta.</p>
-        </div>
-        <div class="p-step">
-          <span class="p-n">02</span>
-          <b>Scripts &amp; On-Site Filming</b>
-          <p>Every script written here, then a full content day in your showroom or on a live install. Ten hooks filmed against interchangeable bodies, so when one tires we swap it instead of starting over. Your projects, your finishes, your team. Never stock footage.</p>
-        </div>
-        <div class="p-step">
-          <span class="p-n">03</span>
-          <b>The Tyre-Kicker Quiz</b>
-          <p>Every click runs into a short qualifying quiz before it ever counts as a lead. Location, budget, timeline, cash or finance. Browsers and bargain-hunters fall out here, quietly, before they reach a human being.</p>
-        </div>
-        <div class="p-step">
-          <span class="p-n">04</span>
-          <b>Straight Into The CRM</b>
-          <p>What survives lands in GoHighLevel the second it is submitted, tagged and timestamped with every quiz answer attached. Nothing sits in an inbox waiting to be noticed.</p>
-        </div>
-        <div class="p-step">
-          <span class="p-n">05</span>
-          <b>We Call Every One</b>
-          <p>Not a text. A phone call from our team, the same working day &mdash; confirming the budget is real, the timeline is real, and that both decision-makers will actually be in the room.</p>
-        </div>
-        <div class="p-step">
-          <span class="p-n">06</span>
-          <b>Booked Into Your Diary</b>
-          <p>Only then does it reach you. The appointment lands in your CRM with everything we learned on the call attached. You turn up and sell.</p>
+      <div class="stack-marquee">
+      <div class="stack-row">
+        <div class="stack-track to-left" aria-hidden="true">
+          <span class="stack-chip is-pm"><span class="sc-dot"></span><b>Meta Ads</b><span class="sc-cat">Paid media</span></span>
+          <span class="stack-chip is-pm"><span class="sc-dot"></span><b>Instagram</b><span class="sc-cat">Paid media</span></span>
+          <span class="stack-chip is-pm"><span class="sc-dot"></span><b>Facebook</b><span class="sc-cat">Paid media</span></span>
+          <span class="stack-chip is-cr"><span class="sc-dot"></span><b>On-Site Filming</b><span class="sc-cat">Creative</span></span>
+          <span class="stack-chip is-cr"><span class="sc-dot"></span><b>Scriptwriting</b><span class="sc-cat">Creative</span></span>
+          <span class="stack-chip is-cr"><span class="sc-dot"></span><b>Hook Rotation</b><span class="sc-cat">Creative</span></span>
+          <span class="stack-chip is-pm"><span class="sc-dot"></span><b>Meta Ads</b><span class="sc-cat">Paid media</span></span>
+          <span class="stack-chip is-pm"><span class="sc-dot"></span><b>Instagram</b><span class="sc-cat">Paid media</span></span>
+          <span class="stack-chip is-pm"><span class="sc-dot"></span><b>Facebook</b><span class="sc-cat">Paid media</span></span>
+          <span class="stack-chip is-cr"><span class="sc-dot"></span><b>On-Site Filming</b><span class="sc-cat">Creative</span></span>
+          <span class="stack-chip is-cr"><span class="sc-dot"></span><b>Scriptwriting</b><span class="sc-cat">Creative</span></span>
+          <span class="stack-chip is-cr"><span class="sc-dot"></span><b>Hook Rotation</b><span class="sc-cat">Creative</span></span>
         </div>
       </div>
+      <div class="stack-row">
+        <div class="stack-track to-right" aria-hidden="true">
+          <span class="stack-chip is-qb"><span class="sc-dot"></span><b>Tyre-Kicker Quiz</b><span class="sc-cat">Qualifying</span></span>
+          <span class="stack-chip is-qb"><span class="sc-dot"></span><b>Phone Qualification</b><span class="sc-cat">Qualifying</span></span>
+          <span class="stack-chip is-qb"><span class="sc-dot"></span><b>Calendly</b><span class="sc-cat">Booking</span></span>
+          <span class="stack-chip is-qb"><span class="sc-dot"></span><b>WhatsApp</b><span class="sc-cat">Nurture</span></span>
+          <span class="stack-chip is-ct"><span class="sc-dot"></span><b>GoHighLevel</b><span class="sc-cat">CRM</span></span>
+          <span class="stack-chip is-ct"><span class="sc-dot"></span><b>Pipeline Tracking</b><span class="sc-cat">Reporting</span></span>
+          <span class="stack-chip is-qb"><span class="sc-dot"></span><b>Tyre-Kicker Quiz</b><span class="sc-cat">Qualifying</span></span>
+          <span class="stack-chip is-qb"><span class="sc-dot"></span><b>Phone Qualification</b><span class="sc-cat">Qualifying</span></span>
+          <span class="stack-chip is-qb"><span class="sc-dot"></span><b>Calendly</b><span class="sc-cat">Booking</span></span>
+          <span class="stack-chip is-qb"><span class="sc-dot"></span><b>WhatsApp</b><span class="sc-cat">Nurture</span></span>
+          <span class="stack-chip is-ct"><span class="sc-dot"></span><b>GoHighLevel</b><span class="sc-cat">CRM</span></span>
+          <span class="stack-chip is-ct"><span class="sc-dot"></span><b>Pipeline Tracking</b><span class="sc-cat">Reporting</span></span>
+        </div>
+      </div>
+      </div>
 
+      <div class="stack-cards reveal">
+        <div class="stack-card is-pm">
+          <span class="sc-dot"></span>
+          <h3>Paid Media</h3>
+          <div class="sc-tools">
+            <span class="sc-tool">Meta Ads</span>
+            <span class="sc-tool">Instagram</span>
+            <span class="sc-tool">Facebook</span>
+          </div>
+          <p>Creative, targeting and daily optimisation on the two platforms where kitchen and bathroom buyers actually scroll.</p>
+        </div>
+        <div class="stack-card is-cr">
+          <span class="sc-dot"></span>
+          <h3>Creative &amp; Filming</h3>
+          <div class="sc-tools">
+            <span class="sc-tool">On-Site Filming</span>
+            <span class="sc-tool">Scriptwriting</span>
+            <span class="sc-tool">Hook Rotation</span>
+          </div>
+          <p>Every script written here, then filmed in your showroom or on a live install. Your projects, your finishes. Never stock footage.</p>
+        </div>
+        <div class="stack-card is-qb">
+          <span class="sc-dot"></span>
+          <h3>Qualification &amp; Booking</h3>
+          <div class="sc-tools">
+            <span class="sc-tool">Tyre-Kicker Quiz</span>
+            <span class="sc-tool">Phone Qualification</span>
+            <span class="sc-tool">Calendly</span>
+            <span class="sc-tool">WhatsApp</span>
+          </div>
+          <p>Every enquiry filtered by the quiz, then called by our team the same working day and booked straight into your diary.</p>
+        </div>
+        <div class="stack-card is-ct">
+          <span class="sc-dot"></span>
+          <h3>CRM &amp; Tracking</h3>
+          <div class="sc-tools">
+            <span class="sc-tool">GoHighLevel</span>
+            <span class="sc-tool">Pipeline Tracking</span>
+          </div>
+          <p>Every lead tagged, timestamped and tracked from the first click through to the closed job.</p>
+        </div>
+      </div>
     </div>
   </section>
 
