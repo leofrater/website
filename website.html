@@ -1114,141 +1114,157 @@
   }
   .offer-cta{ display: flex; justify-content: center; margin-top: clamp(2rem, 4vw, 2.5rem); }
 
-  /* ---------- ROI calculator ---------- */
-  .roi-grid{ display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 1.25rem; align-items: start; }
-  @media (max-width: 900px){ .roi-grid{ grid-template-columns: 1fr; } }
-
-  .roi-panel{
-    background: var(--bg-raised);
-    border: 1px solid var(--line);
-    padding: clamp(1.25rem, 3vw, 1.9rem);
-  }
-  .seg{
-    display: inline-flex;
-    background: var(--bg-inset);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 4px;
-    gap: 4px;
-    margin-bottom: 1.6rem;
-  }
-  .seg button{
+  /* ---------- ROI calculator ----------
+     Deliberately off-brand: a light, corporate panel set into the dark page.
+     All tokens are scoped to #roi so none of this reaches the rest of the site. */
+  #roi{
+    --r-bg: #F4F7FE;
+    --r-card: #FFFFFF;
+    --r-line: #E4E9F2;
+    --r-track: #E8ECF5;
+    --r-ink: #0F172A;
+    --r-muted: #64748B;
+    --r-accent: #2B4EE6;
+    --r-accent-soft: #EDF1FD;
+    background: var(--r-bg);
     font-family: var(--font-primary);
-    font-size: var(--fs-small);
+  }
+  #roi .r-head{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem 3rem;
+    align-items: start;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  @media (max-width: 860px){ #roi .r-head{ grid-template-columns: 1fr; gap: 1rem; } }
+  #roi h2{
+    font-family: var(--font-primary);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+    line-height: 1.05;
+    color: var(--r-ink);
+    text-wrap: balance;
+  }
+  #roi .r-sub{
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.6;
+    color: var(--r-muted);
+    max-width: 44ch;
+  }
+
+  #roi .r-grid{ display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 1.5rem; align-items: start; }
+  @media (max-width: 900px){ #roi .r-grid{ grid-template-columns: 1fr; } }
+  #roi .r-card{
+    background: var(--r-card);
+    border: 1px solid var(--r-line);
+    border-radius: 18px;
+    padding: clamp(1.4rem, 3vw, 2.1rem);
+  }
+  @media (min-width: 901px){ #roi .r-card.r-out{ position: sticky; top: 6.5rem; } }
+
+  /* Segmented control */
+  #roi .r-seg{
+    display: inline-flex;
+    background: var(--r-accent-soft);
+    border-radius: 999px;
+    padding: 5px;
+    gap: 4px;
+    margin-bottom: 1.9rem;
+  }
+  #roi .r-seg button{
+    font-family: inherit;
+    font-size: 0.95rem;
     font-weight: 600;
-    color: var(--cream-dim);
+    color: var(--r-muted);
     background: transparent;
     border: 0;
-    padding: 0.5rem 1.15rem;
+    padding: 0.6rem 1.5rem;
     border-radius: 999px;
     cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
   }
-  .seg button[aria-pressed="true"]{ background: var(--cream); color: var(--navy); }
-  .seg button:focus-visible{ outline: 2px solid var(--cream); outline-offset: 2px; }
+  #roi .r-seg button[aria-pressed="true"]{
+    background: var(--r-card);
+    color: var(--r-ink);
+    box-shadow: 0 1px 3px rgba(15,23,42,0.12);
+  }
+  #roi .r-seg button:focus-visible{ outline: 2px solid var(--r-accent); outline-offset: 2px; }
 
-  .field + .field{ margin-top: 1.3rem; }
-  .field-head{ display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem; }
-  .field-head label{ font-size: var(--fs-small); color: var(--cream-dim); }
-  .field-val{ font-family: var(--font-heading); font-weight: 800; color: var(--cream); font-size: 1.05rem; }
+  /* Fields */
+  #roi .r-field + .r-field{ margin-top: 1.6rem; }
+  #roi .r-field-head{ display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.7rem; }
+  #roi .r-field-head label{ font-size: 0.95rem; color: var(--r-ink); }
+  #roi .r-field-val{ font-size: 1.05rem; font-weight: 700; color: var(--r-accent); }
 
-  .rng{
+  #roi .rng{
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 4px;
-    background: var(--charcoal);
+    height: 6px;
     border-radius: 999px;
     outline: none;
     margin: 0;
+    /* --pct is written by the script so the filled portion tracks the value. */
+    background: linear-gradient(to right, var(--r-accent) 0 var(--pct, 50%), var(--r-track) var(--pct, 50%) 100%);
   }
-  .rng::-webkit-slider-thumb{
+  #roi .rng::-webkit-slider-thumb{
     -webkit-appearance: none;
     appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--r-card);
+    border: 2px solid var(--r-accent);
+    box-shadow: 0 1px 4px rgba(15,23,42,0.2);
+    cursor: pointer;
+  }
+  #roi .rng::-moz-range-thumb{
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: var(--cream);
-    border: 3px solid var(--bg-raised);
-    box-shadow: 0 0 0 1px var(--cream);
+    background: var(--r-card);
+    border: 2px solid var(--r-accent);
+    box-shadow: 0 1px 4px rgba(15,23,42,0.2);
     cursor: pointer;
   }
-  .rng::-moz-range-thumb{
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--cream);
-    border: 3px solid var(--bg-raised);
-    box-shadow: 0 0 0 1px var(--cream);
-    cursor: pointer;
-  }
-  .rng:focus-visible{ outline: 2px solid var(--cream); outline-offset: 6px; }
+  #roi .rng:focus-visible{ outline: 2px solid var(--r-accent); outline-offset: 6px; }
 
-  .roi-out{
-    background: var(--bg-inset);
-    border: 1px solid var(--line-strong);
-    padding: clamp(1.25rem, 3vw, 1.9rem);
-  }
-  @media (min-width: 901px){ .roi-out{ position: sticky; top: 6.5rem; } }
-
-  .roi-tiles{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
-  }
-  .roi-money{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
-    border-top: none;
-  }
-  @media (max-width: 420px){
-    .roi-tiles{ grid-template-columns: repeat(2, 1fr); }
-    .roi-money{ grid-template-columns: 1fr; }
-  }
-  .tile{ background: var(--bg-inset); padding: 1rem 0.9rem; }
-  /* Proportional figures: these are display-size values, not a column to align. */
-  .tile-v{
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: clamp(1.45rem, 3vw, 1.95rem);
-    color: var(--cream);
+  /* Results */
+  #roi .r-stats{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.9rem 1.5rem; }
+  @media (max-width: 420px){ #roi .r-stats{ gap: 1.5rem 1rem; } }
+  /* Proportional figures: display values, not a column to align. */
+  #roi .r-stat-v{
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
     line-height: 1;
+    color: var(--r-accent);
   }
-  .tile-l{ font-size: var(--fs-micro); color: var(--cream-faint); margin-top: 0.45rem; line-height: 1.4; }
+  #roi .r-stat-l{ font-size: 0.9rem; color: var(--r-muted); margin-top: 0.5rem; line-height: 1.4; }
 
-  .roi-hero{
-    background: var(--cream);
-    padding: 1.3rem 1rem;
-    text-align: center;
-    margin-top: 1rem;
-  }
-  .roi-hero-v{
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: clamp(3rem, 7vw, 4rem);
-    line-height: 1;
-    color: var(--navy);
-  }
-  .roi-hero-l{
-    font-family: var(--font-primary);
-    font-size: var(--fs-micro);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(36,50,72,0.75);
-    margin-top: 0.5rem;
-  }
-  .roi-note{
-    font-size: var(--fs-micro);
+  #roi .r-note{
+    font-size: 0.82rem;
     line-height: 1.6;
-    color: var(--cream-faint);
-    margin-top: 1rem;
+    color: var(--r-muted);
+    margin-top: 1.9rem;
   }
-  .roi-cta{ margin-top: 1.1rem; display: block; text-align: center; }
+  #roi .r-cta{
+    display: block;
+    margin-top: 1.4rem;
+    background: var(--r-accent);
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    padding: 1.05rem 1.5rem;
+    border-radius: 12px;
+    transition: background 0.18s ease;
+  }
+  #roi .r-cta:hover{ background: #2340C4; }
+  #roi .r-cta:focus-visible{ outline: 2px solid var(--r-ink); outline-offset: 3px; }
 
 </style>
 </head>
@@ -1505,62 +1521,56 @@
 
   <section id="roi">
     <div class="wrap">
-      <div class="section-head reveal" style="justify-content: center; text-align: center;">
-        <h2>Work out what it is <em>worth to you</em></h2>
+      <div class="r-head reveal">
+        <h2>Work out what it is worth to you.</h2>
+        <p class="r-sub">An estimate of the revenue a campaign could generate for your showroom. Every figure is yours to set, so the numbers are built from your business rather than ours.</p>
       </div>
-      <p class="lead reveal" style="margin: 1rem auto 2.5rem; text-align: center; max-width: 54ch;">Every figure below is yours to set. Move them to match your showroom and see what the maths says.</p>
 
-      <div class="roi-grid reveal">
-        <div class="roi-panel">
-          <div class="seg" role="group" aria-label="Job type">
+      <div class="r-grid reveal">
+        <div class="r-card">
+          <div class="r-seg" role="group" aria-label="Job type">
             <button type="button" id="segKitchen" aria-pressed="true">Kitchen</button>
             <button type="button" id="segBathroom" aria-pressed="false">Bathroom</button>
           </div>
 
-          <div class="field">
-            <div class="field-head"><label for="rSpend">Monthly ad spend</label><span class="field-val" id="vSpend">&pound;3,000</span></div>
+          <div class="r-field">
+            <div class="r-field-head"><label for="rSpend">Monthly ad spend</label><span class="r-field-val" id="vSpend">&pound;3,000</span></div>
             <input class="rng" type="range" id="rSpend" min="900" max="10000" step="100" value="3000">
           </div>
-          <div class="field">
-            <div class="field-head"><label for="rCpl">Cost per qualified lead</label><span class="field-val" id="vCpl">&pound;120</span></div>
+          <div class="r-field">
+            <div class="r-field-head"><label for="rCpl">Cost per qualified lead</label><span class="r-field-val" id="vCpl">&pound;120</span></div>
             <input class="rng" type="range" id="rCpl" min="25" max="300" step="5" value="120">
           </div>
-          <div class="field">
-            <div class="field-head"><label for="rJob">Average job value</label><span class="field-val" id="vJob">&pound;25,000</span></div>
+          <div class="r-field">
+            <div class="r-field-head"><label for="rJob">Average job value</label><span class="r-field-val" id="vJob">&pound;25,000</span></div>
             <input class="rng" type="range" id="rJob" min="3000" max="80000" step="500" value="25000">
           </div>
-          <div class="field">
-            <div class="field-head"><label for="rBook">Qualified lead to appointment</label><span class="field-val" id="vBook">35%</span></div>
+          <div class="r-field">
+            <div class="r-field-head"><label for="rBook">Lead to appointment</label><span class="r-field-val" id="vBook">35%</span></div>
             <input class="rng" type="range" id="rBook" min="10" max="80" step="5" value="35">
           </div>
-          <div class="field">
-            <div class="field-head"><label for="rClose">Appointment to sale</label><span class="field-val" id="vClose">25%</span></div>
+          <div class="r-field">
+            <div class="r-field-head"><label for="rClose">Appointment to sale</label><span class="r-field-val" id="vClose">25%</span></div>
             <input class="rng" type="range" id="rClose" min="5" max="70" step="5" value="25">
           </div>
-          <div class="field">
-            <div class="field-head"><label for="rMargin">Profit margin</label><span class="field-val" id="vMargin">25%</span></div>
+          <div class="r-field">
+            <div class="r-field-head"><label for="rMargin">Profit margin</label><span class="r-field-val" id="vMargin">25%</span></div>
             <input class="rng" type="range" id="rMargin" min="5" max="50" step="1" value="25">
           </div>
         </div>
 
-        <div class="roi-out">
-          <div class="roi-tiles">
-            <div class="tile"><div class="tile-v" id="oLeads">25</div><div class="tile-l">Qualified leads a month</div></div>
-            <div class="tile"><div class="tile-v" id="oAppts">9</div><div class="tile-l">Appointments</div></div>
-            <div class="tile"><div class="tile-v" id="oJobs">2</div><div class="tile-l">Jobs won</div></div>
-          </div>
-          <div class="roi-money">
-            <div class="tile"><div class="tile-v" id="oRev">&pound;54,688</div><div class="tile-l">Estimated revenue</div></div>
-            <div class="tile"><div class="tile-v" id="oProfit">&pound;13,672</div><div class="tile-l">Estimated profit</div></div>
-          </div>
-
-          <div class="roi-hero">
-            <div class="roi-hero-v" id="oRoas">18.2&times;</div>
-            <div class="roi-hero-l">Return on ad spend</div>
+        <div class="r-card r-out">
+          <div class="r-stats">
+            <div><div class="r-stat-v" id="oLeads">25</div><div class="r-stat-l">Leads a month</div></div>
+            <div><div class="r-stat-v" id="oAppts">9</div><div class="r-stat-l">Appointments</div></div>
+            <div><div class="r-stat-v" id="oJobs">2</div><div class="r-stat-l">Jobs closed</div></div>
+            <div><div class="r-stat-v" id="oRev">&pound;54,688</div><div class="r-stat-l">Estimated revenue</div></div>
+            <div><div class="r-stat-v" id="oProfit">&pound;13,672</div><div class="r-stat-l">Estimated profit</div></div>
+            <div><div class="r-stat-v" id="oRoas">18.2&times;</div><div class="r-stat-l">Return on ad spend</div></div>
           </div>
 
-          <p class="roi-note" aria-live="polite">An estimate, not a promise. It runs on the numbers you set above, not on figures we have assumed for you. Ad spend is paid direct to Meta and sits outside our fee.</p>
-          <a href="https://calendly.com/leo-foxdmedia/30min" target="_blank" rel="noopener" class="btn btn-primary roi-cta">Get these numbers for real <span class="btn-arrow">&rarr;</span></a>
+          <p class="r-note">An estimate, not a promise. It runs on the numbers you set, not on figures we have assumed for you. Ad spend is paid direct to Meta and sits outside our fee.</p>
+          <a href="https://calendly.com/leo-foxdmedia/30min" target="_blank" rel="noopener" class="r-cta">Get these numbers for real &rarr;</a>
         </div>
       </div>
     </div>
@@ -1871,19 +1881,26 @@
         el('oRoas').textContent   = (spend > 0 ? (revenue / spend).toFixed(1) : '0.0') + '×';
       }
 
-      [rSpend, rCpl, rJob, rBook, rClose, rMargin].forEach(function(r){
-        r.addEventListener('input', recalc);
+      var ranges = [rSpend, rCpl, rJob, rBook, rClose, rMargin];
+      function paint(r){
+        var pct = (r.value - r.min) / (r.max - r.min) * 100;
+        r.style.setProperty('--pct', pct + '%');
+      }
+      ranges.forEach(function(r){
+        r.addEventListener('input', function(){ paint(r); recalc(); });
       });
 
       function setTrade(kitchen){
         segK.setAttribute('aria-pressed', kitchen ? 'true' : 'false');
         segB.setAttribute('aria-pressed', kitchen ? 'false' : 'true');
         rJob.value = kitchen ? 25000 : 12000;
+        paint(rJob);
         recalc();
       }
       segK.addEventListener('click', function(){ setTrade(true); });
       segB.addEventListener('click', function(){ setTrade(false); });
 
+      ranges.forEach(paint);
       recalc();
     }
   })();
