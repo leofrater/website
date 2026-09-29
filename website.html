@@ -168,6 +168,60 @@
   .framed .fr-tr{ top: -1px; right: -1px; border-left: none; border-bottom: none; }
   .framed .fr-bl{ bottom: -1px; left: -1px; border-right: none; border-top: none; }
 
+  /* ---------- WhatsApp button ----------
+     Deliberately in WhatsApp's own green and white, not the site palette,
+     so it is recognised instantly as the thing it is. */
+  .wa-fab{
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 1.6rem);
+    right: clamp(1rem, 3vw, 2rem);
+    z-index: 200;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+  }
+  .wa-fab-label{
+    background: var(--bg-raised);
+    border: 1px solid var(--line-strong);
+    color: var(--cream);
+    font-family: var(--font-primary);
+    font-size: var(--fs-small);
+    font-weight: 600;
+    padding: 0.5em 0.9em;
+    border-radius: 999px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+  }
+  .wa-fab:hover .wa-fab-label,
+  .wa-fab:focus-visible .wa-fab-label{ opacity: 1; transform: none; }
+  .wa-fab-btn{
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #25D366;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.45);
+    transition: transform 0.2s ease;
+  }
+  .wa-fab-btn svg{ fill: #FFFFFF; }
+  .wa-fab:hover .wa-fab-btn{ transform: scale(1.06); }
+  .wa-fab:focus-visible .wa-fab-btn{ outline: 2px solid var(--cream); outline-offset: 3px; }
+  /* Narrower than this the nav pill reaches the right edge, so drop clear of it. */
+  @media (max-width: 1080px){
+    .wa-fab{ top: calc(env(safe-area-inset-top, 0px) + 6.4rem); }
+  }
+  @media (max-width: 480px){
+    .wa-fab-btn{ width: 48px; height: 48px; }
+    .wa-fab-btn svg{ width: 25px; height: 25px; }
+  }
+
   /* ---------- Nav ---------- */
   header{
     position: sticky;
@@ -222,24 +276,6 @@
     transition: color 0.15s ease;
   }
   .nav-links a:hover{ color: var(--cream); }
-  .nav-wa{
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    font-family: var(--font-primary);
-    font-size: var(--fs-small);
-    font-weight: 600;
-    color: var(--cream-dim);
-    white-space: nowrap;
-    flex: none;
-    transition: color 0.15s ease;
-  }
-  .nav-wa:hover{ color: var(--cream); }
-  .nav-wa svg{ fill: currentColor; flex: none; }
-  /* Below this the bar is too tight for the digits; the glyph still taps through. */
-  @media (max-width: 860px){ .nav-wa-num{ display: none; } }
-
   .nav-toggle{
     display: none;
     background: none;
@@ -300,6 +336,9 @@
   @media (max-width: 960px){
     .hero-top{ grid-template-columns: 1fr; gap: 2.25rem; }
   }
+  /* Grid items default to min-width:auto, so the feed's min-content was
+     forcing the track wider than the viewport and clipping the headline. */
+  .hero-top > *{ min-width: 0; }
   .hero-copy .hero-cta{ margin-top: clamp(1.75rem, 3vw, 2.25rem); }
 
   .hero h1{
@@ -1328,15 +1367,18 @@
         <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
-      <a href="https://wa.me/447432618350?text=Hi%20Leo%2C%20I%20found%20you%20through%20the%20Foxd%20Media%20site." target="_blank" rel="noopener" class="nav-wa" aria-label="Message Leo on WhatsApp">
-        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 016.988 2.896 9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.359.101 11.945c0 2.096.547 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.581 0 11.94-5.359 11.943-11.945A11.821 11.821 0 0020.52 3.45"/></svg>
-        <span class="nav-wa-num">07432 618350</span>
-      </a>
       <a href="https://calendly.com/leo-foxdmedia/30min" target="_blank" rel="noopener" class="btn btn-primary nav-cta">Book a Call <span class="btn-arrow">→</span></a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">☰</button>
     </div>
   </div>
 </header>
+
+<a class="wa-fab" href="https://wa.me/447432618350?text=Hi%20Leo%2C%20I%20found%20you%20through%20the%20Foxd%20Media%20site." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <span class="wa-fab-label" aria-hidden="true">Chat on WhatsApp</span>
+  <span class="wa-fab-btn">
+    <svg viewBox="0 0 24 24" width="29" height="29" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 016.988 2.896 9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.359.101 11.945c0 2.096.547 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.581 0 11.94-5.359 11.943-11.945A11.821 11.821 0 0020.52 3.45"/></svg>
+  </span>
+</a>
 
 <main id="top">
 
