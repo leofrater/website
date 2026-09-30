@@ -1126,31 +1126,7 @@
     max-width: 62ch;
   }
 
-  /* ---------- Terms & guarantee ---------- */
-  .terms-grid{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-  @media (max-width: 860px){ .terms-grid{ grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 460px){ .terms-grid{ grid-template-columns: 1fr; } }
-  .term-card{
-    background: var(--bg-raised);
-    border: 1px solid var(--line);
-    padding: clamp(1.25rem, 2.5vw, 1.75rem);
-    text-align: center;
-  }
-  .term-card .tc-v{
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: clamp(1.05rem, 2.1vw, 1.3rem);
-    color: var(--cream);
-    line-height: 1.2;
-  }
-  .term-card .tc-l{
-    font-family: var(--font-primary);
-    font-size: var(--fs-micro);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--cream-faint);
-    margin-top: 0.6rem;
-  }
+  /* ---------- Guarantee ---------- */
   .guarantee{
     position: relative;
     margin-top: 0;
@@ -1579,25 +1555,6 @@
 
   <section id="terms" style="padding-top:0;">
     <div class="wrap">
-      <div class="terms-grid reveal">
-        <div class="term-card">
-          <div class="tc-v">&pound;0</div>
-          <div class="tc-l">Setup fee</div>
-        </div>
-        <div class="term-card">
-          <div class="tc-v">No contract</div>
-          <div class="tc-l">30 days&rsquo; notice</div>
-        </div>
-        <div class="term-card">
-          <div class="tc-v">One studio</div>
-          <div class="tc-l">Per catchment area</div>
-        </div>
-        <div class="term-card">
-          <div class="tc-v">&pound;900+</div>
-          <div class="tc-l">Ad spend, paid direct to Meta</div>
-        </div>
-      </div>
-
       <div class="head-c g-head reveal">
         <h2>The Full <em>Diary Guarantee</em></h2>
       </div>
