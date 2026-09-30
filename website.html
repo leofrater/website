@@ -99,12 +99,14 @@
      near-black ground. The flat tone is the fallback where a browser
      cannot clip a background to text, which would otherwise render the
      word invisible. */
-  em{
+  em,
+  .stack-hl{
     font-style: normal;
     color: var(--navy-lift);
   }
   @supports ((background-clip: text) or (-webkit-background-clip: text)){
-    em{
+    em,
+    .stack-hl{
       background-image: linear-gradient(180deg, var(--glow-top) 0%, var(--glow-top) 18%, var(--navy) 100%);
       -webkit-background-clip: text;
       background-clip: text;
@@ -116,7 +118,8 @@
     }
   }
   @media (prefers-reduced-transparency: reduce){
-    em{ filter: none; }
+    em,
+    .stack-hl{ filter: none; }
   }
 
   .eyebrow{
@@ -1014,7 +1017,6 @@
     background: var(--cream);
   }
   .stack-head h2{ font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1.12; }
-  .stack-hl{ color: var(--navy-lift); }
   .stack-sub{
     font-size: var(--fs-lead);
     line-height: 1.6;
