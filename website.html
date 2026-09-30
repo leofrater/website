@@ -380,19 +380,9 @@
   .hero-lead{ margin-inline: auto; }
   .hero-cta{ justify-content: center; }
 
-  .hero-copy{ text-align: left; }
   .hero-copy h1{
-    margin-inline: 0;
-    max-width: 15ch;
+    max-width: 20ch;
     font-size: clamp(2.4rem, 4.4vw, 3.9rem);
-  }
-  .hero-copy .hero-lead{ margin-inline: 0; }
-  .hero-copy .hero-cta{ justify-content: flex-start; }
-  @media (max-width: 960px){
-    .hero-copy{ text-align: center; }
-    .hero-copy h1{ margin-inline: auto; max-width: 20ch; }
-    .hero-copy .hero-lead{ margin-inline: auto; }
-    .hero-copy .hero-cta{ justify-content: center; }
   }
   /* ---------- Hero spec strip ----------
      A drafting dimension line, the annotation these studios read off an
@@ -1325,6 +1315,35 @@
   }
   #roi .r-cta:hover{ background: #141C29; }
   #roi .r-cta:focus-visible{ outline: 2px solid var(--r-ink); outline-offset: 3px; }
+
+  /* ---------- Centred layout ----------
+     The page reads centred throughout. The two live interfaces below keep
+     their own alignment: a label at one end and its value at the other is
+     what makes a slider row and a feed row readable at a glance. */
+  body{ text-align: center; }
+  .lead{ margin-inline: auto; }
+  .section-head{ justify-content: center; text-align: center; }
+  .compare-title{ justify-content: center; }
+  .compare-list li{ justify-content: center; text-align: center; }
+  .g-grid{ text-align: center; }
+  .g-item{ align-items: center; }
+  .stack-card{ align-items: center; text-align: center; }
+  .sc-tools{ justify-content: center; }
+  .faq-q{ justify-content: center; gap: 1rem; text-align: center; }
+  .founder-text{ text-align: center; }
+  .footer-grid{ justify-content: center; text-align: center; }
+  .footer-col{ align-items: center; }
+  .footer-bottom{ justify-content: center; text-align: center; }
+  .spec-text{ text-align: center; }
+
+  #roi .r-head{ grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  #roi .r-sub{ margin-inline: auto; }
+  #roi .r-stats{ text-align: center; }
+
+  /* Interfaces, not copy. */
+  .feed, .feed *{ text-align: left; }
+  #roi .r-field-head label{ text-align: left; }
+  #roi .r-field-val{ text-align: right; }
 
 </style>
 </head>
