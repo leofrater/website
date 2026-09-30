@@ -26,6 +26,7 @@
     --navy-deep: #141C29;
     --navy-soft: rgba(36,50,72,0.45);
     --navy-lift: #7CA0D8;
+    --glow-top: #A0C2E3;
     --ink: #1B1912;
 
     --font-secondary: 'Fraunces', Georgia, serif;
@@ -92,14 +93,29 @@
   }
   .hero h1{ font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.01em; }
 
+  /* Key words wear the navy glow gradient: #A0C2E3 down to #243248, lit
+     from behind so the darker foot of the gradient still reads on the
+     near-black ground. The flat tone is the fallback where a browser
+     cannot clip a background to text, which would otherwise render the
+     word invisible. */
   em{
     font-style: normal;
-    color: var(--navy);
-    background-color: var(--cream);
-    border-radius: 6px;
-    padding-inline: 0.18em;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
+    color: var(--navy-lift);
+  }
+  @supports ((background-clip: text) or (-webkit-background-clip: text)){
+    em{
+      background-image: linear-gradient(180deg, var(--glow-top) 0%, var(--glow-top) 18%, var(--navy) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      filter:
+        drop-shadow(0 0 12px rgba(160,194,227,0.55))
+        drop-shadow(0 0 38px rgba(160,194,227,0.28));
+    }
+  }
+  @media (prefers-reduced-transparency: reduce){
+    em{ filter: none; }
   }
 
   .eyebrow{
