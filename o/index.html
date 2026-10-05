@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Foxd Media — Booked appointments for kitchen &amp; bathroom showrooms</title>
+<meta name="description" content="We write the scripts, film the ads, build the funnel and phone every lead to qualify it. 45 qualified leads in your first 90 days, or the campaign carries on at our cost.">
+<meta name="theme-color" content="#18181A">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* Outreach landing page. Traffic arrives by QR code or direct message,
+     so this is built mobile-first and cold: one video, one promise, one
+     call booking. No navigation, nothing to scroll-hunt for. Tokens are
+     the same set as index.html so the two pages read as one brand. */
+  :root{
+    color-scheme: dark;
+
+    --bg: #18181A;
+    --bg-raised: #221F1D;
+    --bg-inset: #0E0D0C;
+    --line: rgba(74,71,64,0.45);
+    --line-strong: rgba(74,71,64,0.75);
+
+    --cream: #E5DAB8;
+    --cream-dim: #C3B896;
+    --cream-faint: #7A715C;
+    --charcoal: #4A4740;
+
+    --navy: #243248;
+    --navy-deep: #141C29;
+    --navy-soft: rgba(36,50,72,0.45);
+    --navy-lift: #7CA0D8;
+    --glow-top: #A0B2CF;
+    --ink: #1B1912;
+
+    --font-secondary: 'Fraunces', Georgia, serif;
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'Montserrat', 'Arial Black', sans-serif;
+
+    --fs-hero: clamp(2.6rem, 6.4vw, 5.4rem);
+    --fs-h2: clamp(1.9rem, 4vw, 3rem);
+    --fs-h3: clamp(1.3rem, 2vw, 1.6rem);
+    --fs-lead: clamp(1.05rem, 1.4vw, 1.25rem);
+    --fs-body: 1rem;
+    --fs-small: 0.875rem;
+    --fs-micro: 0.75rem;
+
+    --container: 1160px;
+    --gap: clamp(1.25rem, 3vw, 2.25rem);
+  }
+
+  *,*::before,*::after{ box-sizing: border-box; }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  /* The underglows are deliberately wider than the boxes they sit behind,
+     which on a phone puts them past the viewport edge. Clip rather than
+     shrink them, so the glow still reaches the edge but nothing scrolls
+     sideways. `clip` over `hidden` so no scroll container is created. */
+  html{ overflow-x: hidden; overflow-x: clip; }
+
+  body{
+    margin: 0;
+    overflow-x: hidden;
+    overflow-x: clip;
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--font-primary);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-align: center;
+  }
+
+  /* Film grain, as on the main site. */
+  body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.045;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  img,svg{ max-width: 100%; display: block; }
+  a{ color: inherit; }
+  ::selection{ background: var(--navy-soft); color: var(--cream); }
+
+  .wrap{
+    max-width: 820px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+  }
+  .wrap > *{ min-width: 0; }
+
+  h1,h2{
+    font-family: var(--font-heading);
+    font-weight: 800;
+    line-height: 1.08;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--cream);
+  }
+
+  /* The signature treatment: emphasised words wear the navy glow
+     gradient. The flat tone is the fallback — without it a browser that
+     cannot clip a background to text renders the word invisible, not
+     merely unstyled. */
+  em{
+    font-style: normal;
+    color: var(--navy-lift);
+  }
+  @supports ((background-clip: text) or (-webkit-background-clip: text)){
+    em{
+      background-image: linear-gradient(180deg, var(--glow-top) 0%, var(--glow-top) 18%, var(--navy) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      filter:
+        drop-shadow(0 0 12px rgba(160,178,207,0.55))
+        drop-shadow(0 0 38px rgba(160,178,207,0.28));
+    }
+  }
+  @media (prefers-reduced-transparency: reduce){
+    em{ filter: none; }
+  }
+
+  .lead{
+    font-size: var(--fs-lead);
+    color: var(--cream-dim);
+    max-width: 44ch;
+    margin-inline: auto;
+    font-weight: 400;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    font-family: var(--font-primary);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    padding: 1.05em 1.9em;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.18s ease, background 0.18s ease;
+    white-space: nowrap;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn:focus-visible{ outline: 2px solid var(--cream); outline-offset: 3px; }
+  .btn-primary{ background: var(--cream); color: var(--ink); }
+  .btn-primary:hover{ background: #EFE6CB; }
+  .btn-arrow{ transition: transform 0.18s ease; }
+  .btn:hover .btn-arrow{ transform: translateX(3px); }
+
+  /* ---------- Underglow ---------- */
+  .glow{ position: relative; z-index: 0; }
+  .glow::before{
+    content: "";
+    position: absolute;
+    inset: -22% -16%;
+    background: radial-gradient(closest-side, rgba(36,50,72,0.9), rgba(36,50,72,0) 72%);
+    filter: blur(48px);
+    z-index: -1;
+    pointer-events: none;
+  }
+  @media (max-width: 640px){ .glow::before{ inset: -14% -10%; filter: blur(32px); } }
+  .btn.glow::before{ inset: -20px -28px; filter: blur(26px); }
+
+  /* ---------- Corner-bracket frame motif ---------- */
+  .framed{ position: relative; }
+  .framed .fr-tl, .framed .fr-tr, .framed .fr-bl, .framed .fr-br{
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--cream);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .framed .fr-tl{ top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .framed .fr-br{ bottom: -1px; right: -1px; border-left: none; border-top: none; }
+  .framed .fr-tr{ top: -1px; right: -1px; border-left: none; border-bottom: none; }
+  .framed .fr-bl{ bottom: -1px; left: -1px; border-right: none; border-top: none; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding-top: clamp(2.25rem, 7vw, 4rem);
+    background-image: radial-gradient(30% 28% at 70% 26%, rgba(36,50,72,0.55) 0%, rgba(36,50,72,0) 100%);
+  }
+
+  /* ---------- Spec strip ----------
+     A drafting dimension line, the annotation these studios read off an
+     elevation every day, used here to carry the positioning statement. */
+  .spec{
+    display: flex;
+    align-items: center;
+    gap: clamp(0.7rem, 1.8vw, 1.4rem);
+    margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+    /* Wider than the reading column, so the graduated rules have the run
+       they need to read as a dimension line rather than two stubs. */
+  }
+  .wrap-wide{ max-width: 1040px; }
+  .spec > *{ min-width: 0; }
+  .spec-end{
+    width: 1px;
+    height: 20px;
+    background: var(--cream-faint);
+    flex: none;
+  }
+  .spec-rule{
+    flex: 1 1 0;
+    min-width: 16px;
+    height: 14px;
+    position: relative;
+  }
+  .spec-rule::after{
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: var(--charcoal);
+  }
+  .spec-rule::before{
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 7px;
+    background-image: repeating-linear-gradient(to right, var(--charcoal) 0 1px, transparent 1px 11px);
+  }
+  .spec-text{
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(0.72rem, 1.05vw, 0.88rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    white-space: nowrap;
+    flex: none;
+    text-align: center;
+  }
+  .spec-text span{ color: var(--cream-faint); font-weight: 600; }
+  /* Too narrow to flank the text, so it stacks: annotation over a single
+     graduated rule. Children are end, rule, text, rule, end. */
+  @media (max-width: 760px){
+    .spec{ flex-direction: column; align-items: stretch; gap: 0.75rem; }
+    .spec > :nth-child(1),
+    .spec > :nth-child(4),
+    .spec > :nth-child(5){ display: none; }
+    .spec-rule{ width: 100%; flex: none; }
+    .spec-text{
+      order: -1;
+      white-space: normal;
+      letter-spacing: 0.14em;
+      line-height: 1.7;
+    }
+    .spec-text span{ display: block; }
+  }
+
+  .hero h1{
+    font-size: clamp(2.1rem, 7.2vw, 3.4rem);
+    max-width: 19ch;
+    margin-inline: auto;
+  }
+  .hero .lead{ margin-top: 1.25rem; }
+  .hero-cta{ margin-top: clamp(1.75rem, 4vw, 2.25rem); }
+
+  /* ---------- VSL ----------
+     They scanned a code because something caught them, so the film is the
+     page rather than an ornament on it. The :not(:defined) rule is
+     Wistia's own: it paints the poster frame, blurred, until the player
+     element registers, so the box is never empty. */
+  .vsl{
+    position: relative;
+    max-width: 720px;
+    margin: clamp(2rem, 5vw, 2.75rem) auto 0;
+  }
+  .vsl wistia-player{
+    display: block;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  wistia-player[media-id='1boe8wjjmk']:not(:defined){
+    background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/1boe8wjjmk/swatch');
+    display: block;
+    filter: blur(5px);
+    padding-top: 56.25%;
+    border-radius: 20px;
+  }
+  @media (max-width: 640px){
+    .vsl wistia-player,
+    wistia-player[media-id='1boe8wjjmk']:not(:defined){ border-radius: 14px; }
+  }
+  .vsl-note{
+    font-size: var(--fs-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cream-faint);
+    margin-top: 0.85rem;
+  }
+
+  /* ---------- The promise, stated once ---------- */
+  .promise{ margin-top: clamp(3rem, 8vw, 4.5rem); }
+  .promise-card{
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    padding: clamp(1.75rem, 5vw, 2.75rem) clamp(1.25rem, 4vw, 2.5rem);
+  }
+  .promise-label{
+    font-family: var(--font-secondary);
+    font-style: italic;
+    font-size: var(--fs-small);
+    letter-spacing: 0.04em;
+    color: var(--cream-faint);
+  }
+  .promise-card h2{
+    font-size: clamp(1.6rem, 5.4vw, 2.4rem);
+    margin-top: 0.6rem;
+    max-width: 24ch;
+    margin-inline: auto;
+  }
+  .promise-body{
+    color: var(--cream-dim);
+    max-width: 48ch;
+    margin: 1.1rem auto 0;
+  }
+  .promise-def{
+    margin: 1.5rem auto 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+    max-width: 52ch;
+    font-size: var(--fs-small);
+    color: var(--cream-dim);
+  }
+  .promise-def b{ color: var(--cream); font-weight: 600; }
+  .promise-cond{
+    margin: 0.9rem auto 0;
+    max-width: 52ch;
+    font-size: var(--fs-micro);
+    line-height: 1.75;
+    color: var(--cream-faint);
+  }
+
+  /* ---------- Closing CTA ---------- */
+  .close{ margin-top: clamp(2.5rem, 7vw, 3.5rem); }
+  .close h2{
+    font-size: clamp(1.4rem, 4.6vw, 1.9rem);
+    max-width: 22ch;
+    margin-inline: auto;
+  }
+  .close .lead{ margin-top: 0.9rem; font-size: var(--fs-body); }
+  .close-cta{ margin-top: 1.75rem; }
+
+  /* ---------- Proof, one line ---------- */
+  .proof{
+    margin: clamp(2.75rem, 7vw, 3.75rem) auto 0;
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .proof-label{
+    display: block;
+    font-size: var(--fs-micro);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream-faint);
+    margin-bottom: 0.5rem;
+  }
+  .proof p{
+    margin: 0;
+    font-size: var(--fs-small);
+    color: var(--cream-dim);
+    max-width: 58ch;
+    margin-inline: auto;
+  }
+  .proof b{ color: var(--cream); font-weight: 600; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: clamp(2rem, 5vw, 2.75rem) 0 clamp(2.5rem, 6vw, 3.5rem);
+    font-size: var(--fs-small);
+    color: var(--cream-faint);
+  }
+  .f-contact{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+    margin-bottom: 0.9rem;
+  }
+  .f-contact a{ color: var(--cream-dim); text-decoration: none; }
+  .f-contact a:hover{ color: var(--cream); }
+  .f-contact a:focus-visible{ outline: 2px solid var(--cream); outline-offset: 3px; }
+  .f-legal{ font-size: var(--fs-micro); letter-spacing: 0.04em; }
+
+  /* ---------- Thumb-reachable bar ----------
+     Same single action as the buttons above, pinned where a thumb already
+     is once the hero button has scrolled away. Phones only. */
+  .thumb{
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 200;
+    padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    background: rgba(14,13,12,0.92);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--line);
+    transform: translateY(110%);
+    transition: transform 0.24s ease;
+  }
+  .thumb.is-up{ transform: translateY(0); }
+  .thumb .btn{ width: 100%; }
+  @media (min-width: 721px){ .thumb{ display: none; } }
+  @media (max-width: 720px){
+    body{ padding-bottom: 5.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <section class="hero">
+    <div class="wrap wrap-wide">
+      <div class="spec">
+        <span class="spec-end" aria-hidden="true"></span>
+        <span class="spec-rule" aria-hidden="true"></span>
+        <span class="spec-text">Qualified leads <span>for your kitchen or bathroom company</span></span>
+        <span class="spec-rule" aria-hidden="true"></span>
+        <span class="spec-end" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <h1>Booked appointments, not <em>names and numbers</em></h1>
+      <p class="lead">We write the scripts, film the ads, build the funnel and phone every lead to qualify it. The only thing you do is close.</p>
+
+      <div class="hero-cta">
+        <a href="https://calendly.com/leo-foxdmedia/discovery" target="_blank" rel="noopener" class="btn btn-primary glow" data-cta>Book a Call <span class="btn-arrow">&rarr;</span></a>
+      </div>
+
+      <div class="vsl glow">
+        <wistia-player media-id="1boe8wjjmk" aspect="1.7777777777777777"></wistia-player>
+        <p class="vsl-note">Two minutes &middot; from Leo</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="promise">
+    <div class="wrap">
+      <div class="promise-card framed">
+        <span class="fr-tl" aria-hidden="true"></span>
+        <span class="fr-tr" aria-hidden="true"></span>
+        <span class="fr-bl" aria-hidden="true"></span>
+        <span class="fr-br" aria-hidden="true"></span>
+
+        <span class="promise-label">The Full Diary Guarantee</span>
+        <h2>45 qualified leads in 90 days, or we keep going</h2>
+        <p class="promise-body">If you haven&rsquo;t had 45 qualified leads in the first 90 days, we carry on running and refreshing the campaign at our own cost until you have. No further invoices until you get there.</p>
+
+        <p class="promise-def"><b>Qualified</b> means a homeowner in your catchment, with a real budget and a real timeline, who we have spoken to on the phone before passing them to you. Every lead gets a phone call the same working day it lands. Not a text. A call.</p>
+
+        <p class="promise-cond">Fair&rsquo;s fair on the conditions: you fund the agreed ad spend, paid direct to Meta and separate from our fee, and you or your team show up for the content day. If a homeowner no-shows on your side, that one still counts. One studio per catchment area, so you are never bidding against someone we also work with.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="wrap">
+      <h2>See if your area is open</h2>
+      <p class="lead">A short call to scope the catchment and the content. No setup fee, no contract, 30 days&rsquo; notice.</p>
+      <div class="close-cta">
+        <a href="https://calendly.com/leo-foxdmedia/discovery" target="_blank" rel="noopener" class="btn btn-primary glow" data-cta>Book a Call <span class="btn-arrow">&rarr;</span></a>
+      </div>
+
+      <div class="proof">
+        <span class="proof-label">Before Foxd Media</span>
+        <p>Ran the residential side of <b>Mirrorworks</b> &middot; work fitted for <b>The Savoy</b> and the <b>InterContinental</b> &middot; <b>500+ homeowners</b> sold to face to face</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-contact">
+      <a href="tel:+447432618350">+44 7432 618350</a>
+      <a href="mailto:leo@foxdmedia.co.uk">leo@foxdmedia.co.uk</a>
+      <a href="https://foxdmedia.co.uk">foxdmedia.co.uk</a>
+    </div>
+    <p class="f-legal">&copy; 2026 Foxd Media &middot; Filmed, written, and run ourselves</p>
+  </div>
+</footer>
+
+<div class="thumb" id="thumbBar">
+  <a href="https://calendly.com/leo-foxdmedia/discovery" target="_blank" rel="noopener" class="btn btn-primary">Book a Call <span class="btn-arrow">&rarr;</span></a>
+</div>
+
+<script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://fast.wistia.com/embed/1boe8wjjmk.js" async type="module"></script>
+
+<script>
+  /* The pinned bar carries the same single action as the buttons in the
+     page, so it stands down whenever a real one is on screen and rises
+     only in the stretch between them. Without IntersectionObserver it
+     simply stays down and the two in-page buttons do the work. */
+  (function(){
+    var bar = document.getElementById('thumbBar');
+    var ctas = document.querySelectorAll('[data-cta]');
+    if(!bar || !ctas.length || !('IntersectionObserver' in window)) return;
+
+    var onScreen = new Set();
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ onScreen.add(e.target); } else { onScreen.delete(e.target); }
+      });
+      bar.classList.toggle('is-up', onScreen.size === 0);
+    }, { rootMargin: '0px 0px -40px 0px' });
+
+    ctas.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
