@@ -807,6 +807,31 @@
     color: var(--cream-faint);
   }
 
+  /* ---------- Hero VSL ----------
+     The :not(:defined) rule is Wistia's own: it paints the poster frame,
+     blurred, until the player element registers, so the box is never empty. */
+  .hero-vsl{
+    position: relative;
+    max-width: 760px;
+    margin: clamp(2.25rem, 5vw, 3rem) auto 0;
+  }
+  .hero-vsl wistia-player{
+    display: block;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  wistia-player[media-id='1boe8wjjmk']:not(:defined){
+    background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/1boe8wjjmk/swatch');
+    display: block;
+    filter: blur(5px);
+    padding-top: 56.25%;
+    border-radius: 20px;
+  }
+  @media (max-width: 640px){
+    .hero-vsl wistia-player,
+    wistia-player[media-id='1boe8wjjmk']:not(:defined){ border-radius: 14px; }
+  }
+
   /* ---------- Hero proof strip ---------- */
   .proof-strip{
     margin: clamp(2rem, 4vw, 2.75rem) auto 0;
@@ -1382,6 +1407,10 @@
         </div>
       </div>
 
+      <div class="hero-vsl glow reveal">
+        <wistia-player media-id="1boe8wjjmk" aspect="1.7777777777777777"></wistia-player>
+      </div>
+
       <div class="proof-strip reveal">
         <span class="ps-label">Before Foxd Media</span>
         <p class="ps-names">Head of Marketing at <b>Mirrorworks</b> &middot; work fitted for <b>The Savoy</b> and the <b>InterContinental</b> &middot; alongside <b>Jojo Bradley</b>, <b>Summerhouse Interiors</b>, <b>Clarendons Kitchens</b>, <b>Heaven &amp; Stubbs</b> and many more &middot; 500+ homeowners sold to face to face</p>
@@ -1747,6 +1776,9 @@
 
 
 
+
+<script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://fast.wistia.com/embed/1boe8wjjmk.js" async type="module"></script>
 
 <script>
   (function(){
