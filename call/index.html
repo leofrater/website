@@ -122,8 +122,7 @@
   .spec-text span{ color: var(--cream-faint); font-weight: 600; }
   @media (max-width: 680px){
     .spec{ flex-direction: column; align-items: stretch; gap: 0.7rem; }
-    .spec > :nth-child(1), .spec > :nth-child(4), .spec > :nth-child(5){ display: none; }
-    .spec-rule{ width: 100%; flex: none; }
+    .spec > :not(.spec-text){ display: none; }
     .spec-text{ order: -1; white-space: normal; letter-spacing: 0.13em; line-height: 1.7; }
     .spec-text span{ display: block; }
   }
