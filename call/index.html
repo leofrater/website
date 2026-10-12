@@ -135,6 +135,17 @@
     margin: clamp(1rem, 2.5vw, 1.4rem) auto 0;
   }
 
+  .roi{
+    font-size: clamp(0.95rem, 1.8vw, 1.08rem);
+    color: var(--cream-dim);
+    max-width: 50ch;
+    margin: clamp(1.1rem, 2.6vw, 1.4rem) auto 0;
+    text-wrap: balance;
+  }
+  .roi b,
+  .roi em{ font-family: var(--font-heading); font-weight: 800; }
+  .roi b{ color: var(--cream); }
+
   /* The video is the page, so it gets the most room. */
   .vsl{ position: relative; margin: clamp(2rem, 5vw, 2.75rem) auto 0; }
   .vsl wistia-player{ display: block; border-radius: 18px; overflow: hidden; }
@@ -242,6 +253,7 @@
 
   <h1>From <em>3 sales a month</em> to 10 a week</h1>
   <p class="lead">A quick 5-minute walkthrough of how I made the ads I ran to take my own home improvement business there, and how the same approach puts qualified homeowners in your diary instead of names and numbers.</p>
+  <p class="roi">Every <b>&pound;1</b> I put into Meta ads brought back <em>&pound;26</em> in sales.</p>
 
   <div class="vsl">
     <wistia-player media-id="1boe8wjjmk" aspect="1.7777777777777777"></wistia-player>
